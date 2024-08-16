@@ -7,7 +7,7 @@ const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password, gender, dob, jobTitle, jobDescription, county, town, role, companyName, companyDetails } = req.body;
+    const { name, email, password, phone, gender, dob, jobTitle, jobDescription, county, town, role, companyName, companyDetails } = req.body;
     const profilePhoto = req.files['profilePhoto'] ? req.files['profilePhoto'][0].path : null;
     const backgroundPhoto = req.files['backgroundPhoto'] ? req.files['backgroundPhoto'][0].path : null;
 
@@ -30,6 +30,7 @@ const signup = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      phone, 
       profilePhoto: profilePhotoUrl,
       backgroundPhoto: backgroundPhotoUrl,
       gender,
@@ -51,6 +52,7 @@ const signup = async (req, res) => {
   }
 };
 
+
 const updateUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -59,7 +61,7 @@ const updateUserById = async (req, res) => {
       return res.status(400).json({ error: 'Invalid User ID' });
     }
 
-    const { name, email, password, gender, dob, jobTitle, jobDescription, county, town, role, companyName, companyDetails } = req.body;
+    const { name, email, password, phone, gender, dob, jobTitle, jobDescription, county, town, role, companyName, companyDetails } = req.body;
     const profilePhoto = req.files['profilePhoto'] ? req.files['profilePhoto'][0].path : null;
     const backgroundPhoto = req.files['backgroundPhoto'] ? req.files['backgroundPhoto'][0].path : null;
 
@@ -85,6 +87,7 @@ const updateUserById = async (req, res) => {
       name,
       email,
       password: hashedPassword || undefined,
+      phone,  
       profilePhoto: profilePhotoUrl || undefined,
       backgroundPhoto: backgroundPhotoUrl || undefined,
       gender,
@@ -108,6 +111,7 @@ const updateUserById = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 const getUserById = async (req, res) => {
   try {
@@ -161,7 +165,6 @@ const getUserProfile = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Prepare the response based on the user's role
     let userProfile = {
       name: user.name,
       email: user.email,
@@ -174,6 +177,7 @@ const getUserProfile = async (req, res) => {
       jobDescription: user.jobDescription,
       county: user.county,
       town: user.town,
+      phone:user.phone
     };
 
     // Add role-specific details
