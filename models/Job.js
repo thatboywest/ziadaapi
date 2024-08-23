@@ -12,6 +12,7 @@ const jobSchema = new Schema({
     county: { type: String, required: true },
     status: { type: String, enum: ['active', 'done'], default: 'active' },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Associated user
+    interestedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Users who have shown interest
 }, {
     timestamps: true,
 });

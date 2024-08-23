@@ -16,9 +16,9 @@ const authenticateToken = (req, res, next) => {
     if (!user || !user.id) {
       return res.status(401).json({ error: 'Token does not contain user ID' });
     }
-
-    req.user = user; // Attach the user object to the request
-    next(); // Proceed to the next middleware or route handler
+    
+    req.user = user; 
+    next(); 
   });
 };
 
