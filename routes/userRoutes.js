@@ -10,7 +10,7 @@ router.post('/signup', upload.fields([{ name: 'profilePhoto' }, { name: 'backgro
 
 router.get('/user/profile', authenticateToken, userController.getUserProfile);
 router.get('/user/all-employee',userController.getAllEmployees);
-router.get('/user/:id', authenticateToken, userController.getUserById);
+router.get('/user/:id',  userController.getUserById);
 router.put('/user/:id', authenticateToken, upload.fields([{ name: 'profilePhoto' }, { name: 'backgroundPhoto' }]), userController.updateUserById);
 router.delete('/user/:id', authenticateToken, userController.deleteUserById);
 
